@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+  <button mat-flat-button color="primary" (click)="back()"><mat-icon>arrow_back</mat-icon> Back</button>
+  <span class="spacer"></span>
+  <span>{{ title$ | async }}</span>
+  <span class="spacer"></span>
+</mat-toolbar>
+
+<ng-container
+  *ngrxLet="{
+    error: error$ | async,
+    team: team$ | async,
+    loadingTeam: loadingTeam$ | async
+  } as data"
+>
+  <div class="container">
+    <mat-spinner *ngIf="data.loadingTeam === 'in_progress'"></mat-spinner>
+
+    <div class="error-container">
+      <p *ngIf="data.error">{{ data.error }}</p>
+    </div>
+
+    <ng-container *ngIf="data.team && !data.error && data.loadingTeam === 'success'">
+      <img class="banner" [src]="data.team.strTeamBanner" [alt]="data.team.strTeam" />
+      <p class="country">{{ data.team.strCountry }}</p>
+      <p class="league">{{ data.team.strLeague }}</p>
+      <p class="description">{{ data.team.strDescriptionEN }}</p>
+    </ng-container>
+  </div>
+</ng-container>

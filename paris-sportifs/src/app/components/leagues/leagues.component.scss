@@ -1,0 +1,30 @@
+.container {
+  padding: 1em;
+}
+
+.mat-mdc-form-field {
+  width: 400px;
+}
+
+.error-container {
+  p {
+    color: red;
+  }
+}
+
+ul.list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 10px;
+
+  li {
+    width: 200px;
+    height: 200px;
+  }
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}

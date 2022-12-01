@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+  <span>Parions Sports</span>
+</mat-toolbar>
+
+<ng-container
+  *ngrxLet="{
+    error: error$ | async,
+    teams: teams$ | async,
+    loadingTeams: loadingTeams$ | async
+  } as data"
+>
+  <div class="container">
+    <div [formGroup]="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Search by league</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="text" matInput formControlName="query" [matAutocomplete]="auto" />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
+          <mat-option *ngFor="let league of filteredLeagues$ | async" [value]="league.strLeague">
+            {{ league.strLeague }}
+          </mat-option>
+        </mat-autocomplete>
+        <button *ngIf="form.value.query" matSuffix mat-icon-button (click)="resetQuery()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <mat-spinner *ngIf="data.loadingTeams === 'in_progress'"></mat-spinner>
+
+    <div class="error-container">
+      <p *ngIf="data.error">{{ data.error }}</p>
+      <p *ngIf="!data.error && data.teams?.length === 0 && data.loadingTeams === 'success'">
+        No league found for the current query.
+      </p>
+    </div>
+
+    <ul *ngIf="data.teams && data.teams.length > 0 && data.loadingTeams === 'success'" class="list">
+      <li *ngFor="let team of data.teams" [matTooltip]="team.strTeam">
+        <a [routerLink]="['/team', team.strTeam]">
+          <img [src]="team.strTeamBadge" [alt]="team.strLeague" />
+        </a>
+      </li>
+    </ul>
+  </div>
+</ng-container>

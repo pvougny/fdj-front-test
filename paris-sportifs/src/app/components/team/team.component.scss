@@ -1,0 +1,33 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.container {
+  padding: 1em;
+}
+
+.error-container {
+  p {
+    color: red;
+  }
+}
+
+.banner {
+  width: 100%;
+}
+
+.country {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.league {
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.description {
+  font-size: 2rem;
+  line-height: 1;
+}
